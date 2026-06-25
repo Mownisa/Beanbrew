@@ -1,70 +1,133 @@
-# BeanBrew ☕ — AI-Powered Coffee Shop Chatbot
+<div align="center">
 
-A full-stack coffee shop ordering system powered by a LangGraph ReAct agent, MCP tools, Gemini LLM, and a whimsical React frontend.
+# ☕ BeanBrew
 
-## Architecture
+### *Coffee, ordered the clever way.*
 
-```
-Frontend (React/Vite)  →  Backend (FastAPI)  →  MCP Server  →  Neon Postgres
-                               ↕
-                         LangGraph Agent
-                               ↕
-                         Gemini 1.5 Flash
-```
+**Chat with an AI barista. Browse the menu, place orders, track your brew — all in a single delightful conversation.**
 
-## Free Cloud Deployment
+[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-Visit_BeanBrew-8B4513?style=for-the-badge)](https://beanbrew-okok-jtifrqs7i-chatbot-11921eff.vercel.app)
+[![GitHub](https://img.shields.io/badge/GitHub-Mownisa%2FBeanbrew-181717?style=for-the-badge&logo=github)](https://github.com/Mownisa/Beanbrew)
 
-| Service     | Provider       | Free Tier |
-|-------------|----------------|-----------|
-| Frontend    | Vercel / Netlify | Permanent free |
-| Backend     | Render         | 1 free web service |
-| MCP Server  | Render         | 1 free web service |
-| Database    | Neon           | Permanent free Postgres |
+![BeanBrew Preview](https://img.shields.io/badge/Status-Live-brightgreen?style=flat-square)
+![Python](https://img.shields.io/badge/Python-3.11-blue?style=flat-square&logo=python)
+![React](https://img.shields.io/badge/React-Vite-61DAFB?style=flat-square&logo=react)
+![FastAPI](https://img.shields.io/badge/FastAPI-Backend-009688?style=flat-square&logo=fastapi)
+
+</div>
 
 ---
 
-## Local Development
+> ⚠️ **Heads up!** This project runs on free-tier servers (Render). If the app feels slow on first load, give it **30–60 seconds** to wake up — the backend and MCP server spin down after inactivity. Totally normal! ☕
 
-### 1. Prerequisites
+---
+
+## ✨ What is BeanBrew?
+
+BeanBrew is a full-stack AI-powered coffee shop where you order through natural conversation. No buttons, no dropdowns — just chat with your barista and your coffee is on its way.
+
+**Try saying:**
+- *"What's on the menu?"*
+- *"I'd like a Cappuccino and a Brownie"*
+- *"What's the status of my order?"*
+- *"Repeat my last order"*
+
+---
+
+## 🎯 Features
+
+| Feature | Description |
+|---|---|
+| 💬 **Conversational Ordering** | Chat naturally to browse, order, and track |
+| 🤖 **AI Barista** | Powered by Google Gemini 1.5 Flash |
+| 🧠 **Smart Memory** | Remembers your order history per session |
+| 📋 **Live Menu** | Real menu fetched from the database |
+| 🔐 **Secure Auth** | JWT-based register & login |
+| 🛡️ **PII Guard** | Protects sensitive data in chat |
+| 🎨 **Cozy UI** | Warm, whimsical frontend design |
+
+---
+
+## 🧠 How It Works
+
+```
+You (Browser)
+     ↓
+React + Vite Frontend
+     ↓
+FastAPI Backend  ←→  LangGraph ReAct Agent
+                           ↓
+                    Gemini 1.5 Flash (LLM)
+                           ↓
+                     MCP Server (Tools)
+                           ↓
+                    Neon Postgres (DB)
+```
+
+The backend runs a **LangGraph ReAct agent** that decides which tool to call based on your message:
+
+| Tool | What it does |
+|---|---|
+| `get_menu` | Fetches all available drinks & food |
+| `create_order` | Places a new order |
+| `check_order_status` | Returns current order status |
+| `get_last_order` | Retrieves your most recent order |
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|---|---|
+| **Frontend** | React, Vite, CSS Modules |
+| **Backend** | FastAPI, Python 3.11 |
+| **AI Agent** | LangGraph ReAct |
+| **LLM** | Google Gemini 1.5 Flash |
+| **Tool Protocol** | MCP (Model Context Protocol) |
+| **Database** | Neon Postgres |
+| **Auth** | JWT + Passlib |
+| **Deployment** | Vercel + Render + Neon |
+
+---
+
+## 🚀 Run Locally
+
+### Prerequisites
 - Python 3.11+
 - Node.js 18+
-- A free [Neon](https://neon.tech) account (or local Postgres)
-- A free [Google AI Studio](https://aistudio.google.com) Gemini API key
+- [Neon](https://neon.tech) account (free)
+- [Google AI Studio](https://aistudio.google.com) Gemini API key (free)
 
-### 2. Database (Neon)
-1. Sign up at https://neon.tech
-2. Create a project → Copy your connection strings:
-   - `DATABASE_URL` (postgres://...)
-   - `POSTGRES_CONN_STRING` (postgresql+psycopg://...)
+### 1. Clone the repo
+```bash
+git clone https://github.com/Mownisa/Beanbrew.git
+cd Beanbrew
+```
 
-### 3. MCP Server
-
+### 2. Set up MCP Server
 ```bash
 cd mcp_server
 cp .env.example .env
-# Edit .env with your DATABASE_URL
+# Fill in DATABASE_URL in .env
 pip install -r requirements.txt
 python main.py
 # Runs on http://localhost:8001
 ```
 
-### 4. Backend
-
+### 3. Set up Backend
 ```bash
 cd backend
 cp .env.example .env
-# Edit .env with all values
+# Fill in all values in .env
 pip install -r requirements.txt
-python main.py
+bash start.sh
 # Runs on http://localhost:8000
 ```
 
-### 5. Frontend
-
+### 4. Set up Frontend
 ```bash
 cd frontend
 npm install
-# Create .env.local:
 echo "VITE_API_URL=http://localhost:8000/api" > .env.local
 npm run dev
 # Runs on http://localhost:5173
@@ -72,71 +135,82 @@ npm run dev
 
 ---
 
-## Deploy to Cloud (Free)
+## ☁️ Cloud Deployment (Free)
 
-### Step 1: Push to GitHub
-```bash
-git init
-git add .
-git commit -m "Initial commit"
-git remote add origin https://github.com/YOUR_USERNAME/beanbrew.git
-git push -u origin main
-```
+| Service | Provider | Cost |
+|---|---|---|
+| Frontend | Vercel | Free forever |
+| Backend | Render | Free tier |
+| MCP Server | Render | Free tier |
+| Database | Neon | Free forever |
 
-### Step 2: Neon Database
-1. Go to https://neon.tech → Create project `beanbrew`
-2. Copy both connection strings (psycopg2 format and psycopg3 format)
-
-### Step 3: Deploy MCP Server on Render
-1. Go to https://render.com → New → Web Service
-2. Connect your GitHub repo
-3. Settings:
-   - **Root Directory**: `mcp_server`
-   - **Runtime**: Python 3
-   - **Build Command**: `pip install -r requirements.txt`
-   - **Start Command**: `python main.py`
-4. Environment variables:
-   - `DATABASE_URL` = your Neon postgres URL
-   - `PORT` = 8001
-5. Deploy → Copy the public URL (e.g. `https://beanbrew-mcp.onrender.com`)
-
-### Step 4: Deploy Backend on Render
-1. New → Web Service
-2. Settings:
-   - **Root Directory**: `backend`
-   - **Runtime**: Python 3
-   - **Build Command**: `pip install -r requirements.txt`
-   - **Start Command**: `bash start.sh`
-3. Environment variables:
-   - `DATABASE_URL` = Neon URL (psycopg2 format)
-   - `POSTGRES_CONN_STRING` = Neon URL (psycopg3 format: `postgresql+psycopg://...`)
-   - `GEMINI_API_KEY` = your key
-   - `MCP_SERVER_URL` = `https://beanbrew-mcp.onrender.com/mcp`
-   - `SECRET_KEY` = any random 32-char string
-4. Deploy → Copy public URL
-
-### Step 5: Deploy Frontend on Vercel
-1. Go to https://vercel.com → New Project → Import from GitHub
-2. Settings:
-   - **Root Directory**: `frontend`
-   - **Framework Preset**: Vite
-3. Environment variables:
-   - `VITE_API_URL` = `https://your-backend.onrender.com/api`
-4. Deploy → Done! 🎉
+### Deploy Order
+1. Push to GitHub
+2. Create Neon database → copy connection strings
+3. Deploy MCP server on Render (`mcp_server/`)
+4. Deploy backend on Render (`backend/`)
+5. Deploy frontend on Vercel (`frontend/`)
 
 ---
 
-## Features
-- 🔐 JWT auth (register/login)
-- 🤖 LangGraph ReAct agent with memory (per-customer thread)
-- ☕ MCP tools: get_menu, create_order, check_order_status, get_last_order
-- 🛡️ PII guard (blocks API keys, redacts email/IP)
-- 💾 Conversation history persisted in Postgres
-- 🎨 Whimsical, cozy frontend
+## 🔌 API Reference
 
-## API Endpoints
-- `POST /api/auth/register` — create account
-- `POST /api/auth/login` — sign in, get JWT
-- `GET /api/auth/me` — current user
-- `POST /api/chat` — send message (auth required)
-- `GET /health` — health check
+| Method | Endpoint | Description |
+|---|---|---|
+| `POST` | `/api/auth/register` | Create a new account |
+| `POST` | `/api/auth/login` | Sign in, receive JWT |
+| `GET` | `/api/auth/me` | Get current user info |
+| `POST` | `/api/chat` | Send a message (auth required) |
+| `GET` | `/health` | Health check |
+
+---
+
+## 📁 Project Structure
+
+```
+Beanbrew/
+├── frontend/          # React + Vite UI
+│   ├── src/
+│   │   ├── pages/     # Landing & Chat pages
+│   │   └── components/
+│   └── vite.config.js
+├── backend/           # FastAPI + LangGraph agent
+│   ├── src/
+│   │   ├── routes/    # Auth & Chat routes
+│   │   ├── migrations/# DB setup & seeding
+│   │   └── repositories/
+│   └── main.py
+├── mcp_server/        # MCP tool server
+│   └── main.py
+└── README.md
+```
+
+---
+
+## 🛡️ Security
+
+- JWT authentication on all protected routes
+- PII guard blocks API keys and redacts emails/IPs from chat
+- Conversation history scoped per user thread
+
+---
+
+## 🤝 Contributing
+
+Pull requests are welcome! For major changes, open an issue first.
+
+---
+
+## 📄 License
+
+MIT — free to use, modify, and distribute.
+
+---
+
+<div align="center">
+
+Built with ☕ love and cozy vibes by [Mownisa](https://github.com/Mownisa)
+
+*Your AI barista is always ready to brew* ✨
+
+</div>
