@@ -2,8 +2,18 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker, DeclarativeBase
 from src.settings import config
 
+
+def get_database_url():
+    url = config.DATABASE_URL
+    url = url.replace("postgresql+psycopg://", "postgresql://")
+    url = url.replace("postgresql+psycopg2://", "postgresql://")
+    url = url.replace("postgres://", "postgresql://")
+    url = url.replace("&channel_binding=require", "")
+    return url
+
+
 engine = create_engine(
-    config.DATABASE_URL,
+    get_database_url(),
     pool_pre_ping=True,
     echo=config.DEBUG,
 )
