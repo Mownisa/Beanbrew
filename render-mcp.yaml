@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: beanbrew-mcp
+    runtime: python
+    rootDir: mcp_server
+    buildCommand: pip install -r requirements.txt
+    startCommand: python main.py
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: PORT
+        value: "8001"

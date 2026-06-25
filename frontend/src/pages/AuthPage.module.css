@@ -1,0 +1,187 @@
+.page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #FDF6EC 0%, #F5E6D0 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.bgDecor {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  font-size: 4rem;
+  opacity: 0.06;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4rem;
+  padding: 2rem;
+  align-content: flex-start;
+}
+
+.backBtn {
+  position: fixed;
+  top: 1.5rem;
+  left: 1.5rem;
+  background: none;
+  border: none;
+  color: var(--roast);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 100px;
+  transition: background 0.2s;
+  z-index: 10;
+}
+
+.backBtn:hover {
+  background: rgba(44,26,14,0.08);
+}
+
+.card {
+  position: relative;
+  z-index: 1;
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(200,149,108,0.25);
+  border-radius: var(--radius-xl);
+  padding: 3rem 2.5rem;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: var(--shadow-deep);
+}
+
+.cardHeader {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.cupIcon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 0.8rem;
+  animation: gentleRock 3s ease-in-out infinite;
+}
+
+@keyframes gentleRock {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--espresso);
+  margin-bottom: 0.4rem;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: var(--latte);
+  font-weight: 300;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.field label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--espresso);
+  letter-spacing: 0.02em;
+}
+
+.field input {
+  padding: 0.85rem 1.1rem;
+  border: 1.5px solid var(--steam);
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--espresso);
+  background: rgba(255,255,255,0.8);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+.field input:focus {
+  border-color: var(--latte);
+  box-shadow: 0 0 0 3px rgba(200,149,108,0.15);
+}
+
+.field input::placeholder {
+  color: var(--steam);
+}
+
+.error {
+  background: rgba(232,165,152,0.2);
+  border: 1px solid var(--blush);
+  color: var(--roast);
+  font-size: 0.85rem;
+  padding: 0.7rem 1rem;
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.submitBtn {
+  background: var(--espresso);
+  color: var(--cream);
+  border: none;
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 16px rgba(44,26,14,0.25);
+  margin-top: 0.4rem;
+}
+
+.submitBtn:hover:not(:disabled) {
+  background: var(--roast);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(44,26,14,0.3);
+}
+
+.submitBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.toggle {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: var(--latte);
+}
+
+.toggleBtn {
+  background: none;
+  border: none;
+  color: var(--roast);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  padding: 0;
+}
+
+.toggleBtn:hover {
+  color: var(--espresso);
+}
