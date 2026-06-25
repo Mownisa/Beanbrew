@@ -262,12 +262,11 @@ def get_last_order(customer_id: int) -> str:
         db.close()
 
 
+import uvicorn
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8001))
     print(f"[BeanBrew MCP] Starting on 0.0.0.0:{port}...")
-
-    mcp.run(
-        transport="streamable-http",
-        host="0.0.0.0",
-        port=port
-    )
+    
+    app = mcp.streamable_http_app()
+    uvicorn.run(app, host="0.0.0.0", port=port)
